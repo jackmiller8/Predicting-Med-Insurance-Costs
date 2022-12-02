@@ -1,0 +1,21 @@
+---
+author: "Will Frauen and Jack Miller"
+title: "Sta 325 Final Project"
+---
+
+```{r}
+library(tidyverse)
+library(broom)
+library(readr)
+```
+
+```{r}
+data <- read_csv("insurance.csv") %>% 
+  mutate(smoker = as.factor(if_else(smoker == "yes", 1, 0)),
+         male = as.factor(if_else(sex == "male", 1, 0)),
+         region = as.factor(region)) %>% 
+  select(-sex)
+head(data)
+```
+
+
