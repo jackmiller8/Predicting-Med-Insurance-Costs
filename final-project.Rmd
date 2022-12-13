@@ -1,15 +1,16 @@
 ---
-author: "Will Frauen and Jack Miller"
 title: "Sta 325 Final Project"
+author: "Will Frauen and Jack Miller"
+output: pdf_document
 ---
 
-```{r}
+```{r include=FALSE}
 library(tidyverse)
 library(broom)
 library(readr)
 ```
 
-```{r}
+```{r include=FALSE}
 data <- read_csv("insurance.csv") %>% 
   mutate(smoker = as.factor(if_else(smoker == "yes", 1, 0)),
          male = as.factor(if_else(sex == "male", 1, 0)),
@@ -17,5 +18,79 @@ data <- read_csv("insurance.csv") %>%
   select(-sex)
 head(data)
 ```
+
+# Introduction
+
+Our project aims to build a model that best predicts insurance costs given predictors such as age, sex, BMI, number of children, and more. These predictor variables will hopefully help us understand the motiviating factors behind insurance costs. We will aim to draw inference using our findings from both our exploratory data analysis as well as our model building. 
+
+# Exploratory Data Analysis
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = charges)) +
+  geom_histogram() +
+  labs(title = "Counts of Insurance Charges",
+       x = "Charges ($)",
+       y = "Count")
+```
+
+``` {r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges))) +
+  geom_histogram() +
+  labs(title = "Counts of Log Insurance Charges",
+       x = "Charges (Log $)",
+       y = "Count")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = as.factor(children))) +
+  geom_boxplot() +
+  labs(title = "Log Insurance Charges vs. Number of Children",
+       x = "Charges (Log $)",
+       y = "# of Children")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = region)) +
+  geom_boxplot() +
+  labs(title = "Log Insurance Charges vs. Region",
+       x = "Charges (Log $)",
+       y = "Region")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = male)) +
+  geom_boxplot() +
+  labs(title = "Log Insurance Charges vs. Male",
+       x = "Charges (Log $)",
+       y = "Male")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = smoker)) +
+  geom_boxplot() +
+  labs(title = "Log Insurance Charges vs. Smoker",
+       x = "Charges (Log $)",
+       y = "Smoker")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = bmi, color = smoker)) +
+  geom_point() +
+  labs(title = "Log Insurance Charges vs. BMI",
+       subtitle = "Colored by Smoker",
+       x = "Charges (Log $)",
+       y = "BMI")
+```
+
+```{r echo = FALSE, fig.width=4, fig.height=3, fig.align='center'}
+ggplot(data, aes(x = log(charges), y = age, color = smoker)) +
+  geom_point() +
+  labs(title = "Log Insurance Charges vs. Age",
+       subtitle = "Colored by Smoker",
+       x = "Charges (Log $)",
+       y = "Age")
+```
+
+
 
 
