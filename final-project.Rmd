@@ -91,6 +91,14 @@ ggplot(data, aes(x = log(charges), y = age, color = smoker)) +
        y = "Age")
 ```
 
+# Modeling
+
+
+```{r}
+
+```
+
+
 
 
 
